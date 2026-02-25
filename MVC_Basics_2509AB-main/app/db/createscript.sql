@@ -202,3 +202,50 @@ VALUES
 ('Tag Heuer', 'Carrera Calibre 16', 5500, 'RVS', 0.14, '2023-03-25', 100, 'Analoog', 'Saffierglas'),
 ('Seiko', 'Prospex LX', 3000, 'RVS', 0.11, '2023-06-12', 200, 'Digitaal', 'Solar aangedreven'),
 ('Casio', 'G-Shock Mudmaster', 450, 'Synthetisch', 0.10, '2024-01-15', 300, 'Digitaal', 'Schokbestendig'); 
+
+-- Step: 08
+-- ******************************************************************************************
+-- Doel : Maak een nieuwe tabel aan met de naam Zangeressen en vul deze met gegevens
+-- ******************************************************************************************
+-- Versie        Datum           Auteur                  Omschrijving
+-- *****         ********        ***************         *************
+-- 01            10-02-2026      Arjan de Ruijter        Tabel + Vulling Zangeressen
+-- ******************************************************************************************
+
+CREATE TABLE Zangeressen
+(
+     Id              SMALLINT       UNSIGNED     NOT NULL     AUTO_INCREMENT
+    ,Naam            VARCHAR(100)                NOT NULL
+    ,Vermogen        DECIMAL(12,2)               NOT NULL
+    ,Nationaliteit   VARCHAR(50)                 NOT NULL
+    ,Leeftijd        SMALLINT                    NOT NULL
+    ,Genre           VARCHAR(50)                 NOT NULL
+    ,HitSong         VARCHAR(100)                                DEFAULT NULL
+    ,Releasedatum    DATE                                         DEFAULT NULL
+    ,CONSTRAINT      PK_Zangeressen_Id                 PRIMARY KEY (Id)
+) ENGINE=InnoDB;
+
+-- Step: 09
+-- ******************************************************************************************
+-- Doel : Vul de tabel Zangeressen met gegevens
+-- ******************************************************************************************
+-- Versie        Datum           Auteur                  Omschrijving
+-- *****         ********        ***************         *************
+-- 01            10-02-2026      Arjan de Ruijter        Vulling Zangeressen
+-- ******************************************************************************************
+
+INSERT INTO Zangeressen
+(
+     Naam
+    ,Vermogen
+    ,Nationaliteit
+    ,Leeftijd
+    ,Genre
+    ,HitSong
+    ,Releasedatum
+)
+VALUES
+('Rihanna',        1700000000, 'Barbados',    36, 'Pop',  'Diamonds',  '2012-09-26'),
+('Taylor Swift',   1200000000, 'Amerikaans',  35, 'Pop',  'Anti-Hero', '2022-10-21'),
+('Beyoncé',         800000000, 'Amerikaans',  44, 'R&B',  'Halo',      '2008-01-20'),
+('Adele',           220000000, 'Brits',       36, 'Soul', 'Hello',     '2015-10-23');
