@@ -7,7 +7,7 @@ class BaseController
      * terug aan de controller
      */
     public function model($model)
-    {
+    {   
         require_once APPROOT . '/models/' . $model . '.php';
         return new $model();
     }
