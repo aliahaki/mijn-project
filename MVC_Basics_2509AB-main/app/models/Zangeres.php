@@ -11,7 +11,8 @@ class Zangeres
 
     public function getAllZangeressen()
     {
-        $sql = 'SELECT ZNG.Naam
+        $sql = 'SELECT ZNG.Id
+                      ,ZNG.Naam
                       ,ZNG.Vermogen
                       ,ZNG.Nationaliteit
                       ,ZNG.Leeftijd
@@ -25,4 +26,19 @@ class Zangeres
 
         return $this->db->resultSet();
     }
+
+     public function delete($Id)
+    {
+        $sql = "DELETE
+                 FROM Zangeressen
+                 WHERE Id = :Id";
+
+        $this->db->query($sql);
+
+        $this->db->bind(':Id', $Id, PDO::PARAM_INT);
+
+        return $this->db->execute();
+    }
+
+
 }

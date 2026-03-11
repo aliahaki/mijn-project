@@ -8,6 +8,15 @@
         </div>
     </div>
 
+    <!-- Terugkoppeling naar de gebruiker -->
+<div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+    <div class="col-10 text-begin text-primary">
+        <div class="alert alert-success" role="alert">
+            <?= $data['message']; ?>
+        </div>
+    </div>
+</div>
+
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
             <table class="table table-striped">
@@ -21,6 +30,7 @@
                         <th>Schermgrootte</th>
                         <th>Releasedatum</th>
                         <th>MegaPixels</th>
+                        <th>Verwijder</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +44,12 @@
                             <td><?= $smartphone->Schermgrootte; ?></td>
                             <td><?= $smartphone->Releasedatum; ?></td>
                             <td><?= $smartphone->MegaPixels; ?></td>
+                            <td class="text-center">
+                                <a href="<?= URLROOT; ?>/SmartphoneController/delete/<?= $smartphone->Id; ?>"
+                                    onclick="return confirm( 'Weet je zeker dat je dit record wilt verwijderen?');">
+                                    <i class="bi bi-trash3-fill text-danger"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
