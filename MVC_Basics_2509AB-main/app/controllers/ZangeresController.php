@@ -34,5 +34,16 @@ class ZangeresController extends BaseController
          $this->index('flex', 'Record is verwijderd');
     }
 
+    public function create()
+{
+    $data = [
+        'title'   => 'Nieuwe zangeres toevoegen',
+        'display' => 'none',
+        'message' => ''
+    ];
+
+    $this->view('zangeres/create', $data);
+}
+
 
 }

@@ -8,19 +8,28 @@
         </div>
     </div>
 
-    <!-- Terugkoppeling naar de gebruiker -->
-    <div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
-        <div class="col-10 text-begin text-primary">
-            <div class="alert alert-success text-center" role="alert">
-                <?= $data['message']; ?>
-            </div>
+       <!-- Terugkoppeling naar de gebruiker -->
+<div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+    <div class="col-10 text-begin text-primary">
+        <div class="alert alert-success" role="alert">
+            <?= $data['message']; ?>
         </div>
     </div>
+</div>
+     <!-- Knop voor het maken van een nieuw smartphone record -->
+<div class="row mt-3 d-flex justify-content-center">
+  <div class="col-10 text-begin text-danger">
+    <a href="<?= URLROOT; ?>/SneakerController/create"
+       class="btn btn-warning"
+       role="button">Nieuwe sneaker
+    </a>
+  </div>
+</div>
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
 
-            <table class="table table-striped">
+            <<table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Merk</th>
@@ -45,7 +54,6 @@
                             <td><?= $sneaker->Gewicht; ?></td>
                             <td><?= $sneaker->Releasedatum; ?></td>
 
-                            <!-- Delete knop -->
                             <td class="text-center">
                                 <a href="<?= URLROOT; ?>/SneakerController/delete/<?= $sneaker->Id; ?>"
                                    onclick="return confirm('Weet je zeker dat je dit record wilt verwijderen?')">
@@ -55,6 +63,7 @@
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+
             </table>
 
             <a href="<?= URLROOT; ?>/homepages/index"><i class="bi bi-arrow-left"></i></a>
