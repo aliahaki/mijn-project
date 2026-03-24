@@ -16,7 +16,6 @@ class SmartphoneController extends BaseController
          */
         $result = $this->smartphoneModel->getAllSmartphones();
 
-
         /**
          * Het $data-array geeft informatie mee aan de view-pagina
          */
@@ -38,9 +37,10 @@ class SmartphoneController extends BaseController
     {
         $result = $this->smartphoneModel->delete($Id);
 
-         header('Refresh:3 ; url='. URLROOT .'/smartphoneController/index');
+        header('Location: ' . URLROOT . '/SmartphoneController/index');
+        exit;
 
-         $this->index('flex', 'Record is verwijderd');
+        $this->index('flex', 'Record is verwijderd');
     }
 
     public function create()
@@ -50,32 +50,72 @@ class SmartphoneController extends BaseController
             'display' => 'none',
             'message' => ''
         ];
+
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST['merk']) ||
-        empty($_POST['model']) ||
-        empty($_POST['prijs']) ||
-        empty($_POST['geheugen']) ||
-        empty($_POST['besturingssysteem']) ||
-        empty($_POST['schermgrootte']) ||
-        empty($_POST['releasedatum']) ||
-        empty($_POST['megapixels'])) {
 
-        $data['display'] = 'flex';
-        $data['message'] = 'Vul alle velden in';
-    }
-    else {
-        $data['display'] = 'flex';
-        $data['message'] = 'De gegevens zijn opgeslagen';
+            if (empty($_POST['merk']) ||
+                empty($_POST['model']) ||
+                empty($_POST['prijs']) ||
+                empty($_POST['geheugen']) ||
+                empty($_POST['besturingssysteem']) ||
+                empty($_POST['schermgrootte']) ||
+                empty($_POST['releasedatum']) ||
+                empty($_POST['megapixels'])) {
 
-        $this->smartphoneModel->create($_POST);
+                $data['display'] = 'flex';
+                $data['message'] = 'Vul alle velden in';
+            }
+            else {
 
-        header('Refresh: 3; URL=' . URLROOT . '/SmartphoneController/index');
-    }
-}
+                $data['display'] = 'flex';
+                $data['message'] = 'De gegevens zijn opgeslagen';
+
+                $this->smartphoneModel->create($_POST);
+
+                header('Location: ' . URLROOT . '/SmartphoneController/index');
+                exit;
+            }
+        }
 
         $this->view('smartphone/create', $data);
     }
 
+    public function update($Id=NULL)
+    {
+        $data = [
+            'title'   => 'Wijzig smartphone',
+            'display' => 'none',
+            'message' => ''
+        ];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            if (empty($_POST['merk']) ||
+                empty($_POST['model']) ||
+                empty($_POST['prijs']) ||
+                empty($_POST['geheugen']) ||
+                empty($_POST['besturingssysteem']) ||
+                empty($_POST['schermgrootte']) ||
+                empty($_POST['releasedatum']) ||
+                empty($_POST['megapixels'])) {
+
+                $data['display'] = 'flex';
+                $data['message'] = 'Vul alle velden in';
+                $data['color'] = 'danger';
+            }
+            else {
+                $result = $this->smartphoneModel->updateSmartphone($_POST);
+
+                $data['display'] = 'flex';
+                $data['message'] = 'Het record is succesvol opgeslagen';
+                $data['color'] = 'success';
+                header('Refresh: 3; URL=' . URLROOT . '/SmartphoneController/index');
+            }
+        }
+
+        // Laat de model de data ophalen uit de database
+        $data['smartphone'] = $this->smartphoneModel->getSmartphoneById($Id);
+
+        $this->view('smartphone/update', $data);
+    }
 }
-
-

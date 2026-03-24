@@ -79,4 +79,25 @@ public function create($data)
     return $this->db->execute();
 }
 
-}
+  public function getSneakerById($id)
+  {
+    $sql = "SELECT HRG.Id
+                  ,HRG.Merk
+                  ,HRG.Model
+                  ,HRG.Prijs
+                  ,HRG.Materiaal
+                  ,HRG.Gewicht
+                  ,DATE_FORMAT(HRG.Releasedatum, '%Y-%m-%d') AS Releasedatum
+                  ,HRG.Waterdichtheid
+                  ,HRG.Type
+                  ,HRG.UniekKenmerk
+            FROM Horloges AS HRG
+            WHERE HRG.Id = :id";
+
+    $this->db->query($sql);
+    $this->db->bind(':id', $id, PDO::PARAM_INT);
+
+    return $this->db->single();
+ }
+
+} 

@@ -67,4 +67,23 @@ class Sneaker
 
         return $this->db->execute();
     }
-}
+
+    public function getSneakerById($id)
+    {
+        $sql = 'SELECT SNK.Id
+                      ,SNK.Merk
+                      ,SNK.Model
+                      ,SNK.Type
+                      ,SNK.Prijs
+                      ,SNK.Materiaal
+                      ,SNK.Gewicht
+                      ,DATE_FORMAT(SNK.Releasedatum, "%Y-%m-%d") AS Releasedatum
+                FROM Sneakers AS SNK
+                WHERE SNK.Id = :id';
+
+        $this->db->query($sql);
+        $this->db->bind(':id', $id, PDO::PARAM_INT);
+
+        return $this->db->single();
+    }
+} 

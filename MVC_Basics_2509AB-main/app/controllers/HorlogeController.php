@@ -73,4 +73,19 @@ public function create()
     $this->view('horloge/create', $data);
 }
 
+ public function update($Id=NULL)
+    {
+        $data = [
+            'title'   => 'Wijzig horloge',
+            'display' => 'none',
+            'message' => ''
+        ];
+
+    // Laat de model de data ophalen uit de database
+    $data['horloge'] = $this->horlogeModel->getHorlogeById($Id);
+
+    $this->view('horloge/update', $data);
+    }
+
+
 }

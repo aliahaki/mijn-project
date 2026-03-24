@@ -40,6 +40,7 @@
                         <th>Waterdichtheid (m)</th>
                         <th>Type</th>
                         <th>Uniek Kenmerk</th>
+                        <th>Wijzigen</th>
                         <th>Verwijder</th>
                     </tr>
                 </thead>
@@ -55,6 +56,11 @@
                             <td><?= $horloge->Waterdichtheid; ?></td>
                             <td><?= $horloge->Type; ?></td>
                             <td><?= $horloge->UniekKenmerk; ?></td>
+                              <td class="text-center">
+                                <a href="<?= URLROOT; ?>/HorlogeController/update/<?= $horloge->Id; ?>">
+                                    <i class="bi bi-pencil-fill text-success"></i>
+                                </a>
+                            </td>
                                <td class="text-center">
                                 <a href="<?= URLROOT; ?>/HorlogeController/delete/<?= $horloge->Id; ?>"
                                     onclick="return confirm( 'Weet je zeker dat je dit record wilt verwijderen?');">

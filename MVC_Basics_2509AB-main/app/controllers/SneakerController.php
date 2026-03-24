@@ -63,11 +63,30 @@ class SneakerController extends BaseController
                 $this->sneakerModel->create($_POST);
 
                 header('Refresh: 3; URL=' . URLROOT . '/SneakerController/index');
-                exit;
             }
         }
 
         $this->view('sneaker/create', $data);
     }
+
+     public function update($Id=NULL)
+    {
+        $data = [
+            'title'   => 'Wijzig sneaker',
+            'display' => 'none',
+            'message' => ''
+        ];
+
+    // Laat de model de data ophalen uit de database
+    $data['sneaker'] = $this->sneakerModel->getSneakerById($Id);
+
+    $this->view('sneaker/update', $data);
+    }
+
+
+
+
+
+
 }
 
