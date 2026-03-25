@@ -71,7 +71,7 @@
                 </div>
                 <input type="hidden" name="id" value="<?= $data['horloge']->Id ?? '' ?>">
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Verstuur</button>
             </form>
 
             <a href="<?= URLROOT; ?>/homepages/index" class="bi bi-arrow-left"></a>

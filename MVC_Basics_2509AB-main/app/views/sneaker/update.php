@@ -61,7 +61,7 @@
 
                 <input type="hidden" name="id" value="<?= $data['sneaker']->Id ?? '' ?>">
 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Verstuur</button>
 
             </form>
 
