@@ -79,7 +79,7 @@ public function create($data)
     return $this->db->execute();
 }
 
-  public function getSneakerById($id)
+  public function getHorlogeById($id)
   {
     $sql = "SELECT HRG.Id
                   ,HRG.Merk
@@ -100,4 +100,33 @@ public function create($data)
     return $this->db->single();
  }
 
+ public function updateHorloge($request)
+    {
+        // var_dump($request);
+        $sql = "UPDATE Horloges as HRG
+                SET HRG.Merk = :merk,
+                    HRG.Model = :model,
+                    HRG.Prijs = :prijs,
+                    HRG.Materiaal = :materiaal,
+                    HRG.Gewicht = :gewicht,
+                    HRG.Releasedatum = :releasedatum,
+                    HRG.Waterdichtheid = :waterdichtheid,
+                    HRG.Type = :type,
+                    HRG.UniekKenmerk = :uniekkenmerk
+                WHERE HRG.Id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $request['id'], PDO::PARAM_INT);
+        $this->db->bind(':merk', $request['merk'], PDO::PARAM_STR);
+        $this->db->bind(':model', $request['model'], PDO::PARAM_STR);
+        $this->db->bind(':prijs', $request['prijs'], PDO::PARAM_INT);
+        $this->db->bind(':materiaal', $request['materiaal'], PDO::PARAM_STR);
+        $this->db->bind(':gewicht', $request['gewicht'], PDO::PARAM_STR );
+        $this->db->bind(':releasedatum', $request['releasedatum'], PDO::PARAM_STR); 
+        $this->db->bind(':waterdichtheid', $request['waterdichtheid'], PDO::PARAM_INT);
+        $this->db->bind(':type', $request['type'], PDO::PARAM_STR);
+        $this->db->bind(':uniekkenmerk', $request['uniekkenmerk'], PDO::PARAM_STR); 
+
+        return $this->db->execute();
+    }                    
+ 
 } 

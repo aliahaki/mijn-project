@@ -39,7 +39,7 @@ class Sneaker
     return $this->db->execute();
   }
 
-     public function create($data)
+     public function create($request)
     {
         $sql = "INSERT INTO sneakers ( Merk,
                                       Model,
@@ -57,13 +57,13 @@ class Sneaker
                         :releasedatum)";
 
         $this->db->query($sql);
-        $this->db->bind(':merk', $data['merk'], PDO::PARAM_STR);
-        $this->db->bind(':model', $data['model'], PDO::PARAM_STR);
-        $this->db->bind(':type', $data['type'], PDO::PARAM_STR);
-        $this->db->bind(':prijs', $data['prijs'], PDO::PARAM_STR);
-        $this->db->bind(':materiaal', $data['materiaal'], PDO::PARAM_STR);
-        $this->db->bind(':gewicht', $data['gewicht'], PDO::PARAM_STR);
-        $this->db->bind(':releasedatum', $data['releasedatum'], PDO::PARAM_STR);
+        $this->db->bind(':merk', $request['merk'], PDO::PARAM_STR);
+        $this->db->bind(':model', $request['model'], PDO::PARAM_STR);
+        $this->db->bind(':type', $request['type'], PDO::PARAM_STR);
+        $this->db->bind(':prijs', $request['prijs'], PDO::PARAM_STR);
+        $this->db->bind(':materiaal', $request['materiaal'], PDO::PARAM_STR);
+        $this->db->bind(':gewicht', $request['gewicht'], PDO::PARAM_STR);
+        $this->db->bind(':releasedatum', $request['releasedatum'], PDO::PARAM_STR);
 
         return $this->db->execute();
     }
@@ -86,4 +86,30 @@ class Sneaker
 
         return $this->db->single();
     }
-} 
+
+    public function updateSneaker($request)
+    {
+        //var_dump($_REQUEST);
+        $sql = "UPDATE Sneakers AS SNK
+                SET SNK.Merk = :merk,
+                    SNK.Model = :model,
+                    SNK.Type = :type,
+                    SNK.Prijs = :prijs,
+                    SNK.Materiaal = :materiaal,
+                    SNK.Gewicht = :gewicht,
+                    SNK.Releasedatum = :releasedatum
+                WHERE SNK.Id = :id";
+
+        $this->db->query($sql);
+        $this->db->bind(':merk', $request['merk'], PDO::PARAM_STR);
+        $this->db->bind(':model', $request['model'], PDO::PARAM_STR);
+        $this->db->bind(':type', $request['type'], PDO::PARAM_STR);
+        $this->db->bind(':prijs', $request['prijs'], PDO::PARAM_STR);
+        $this->db->bind(':materiaal', $request['materiaal'], PDO::PARAM_STR);
+        $this->db->bind(':gewicht', $request['gewicht'], PDO::PARAM_STR);
+        $this->db->bind(':releasedatum', $request['releasedatum'], PDO::PARAM_STR);
+        $this->db->bind(':id', $request['id'], PDO::PARAM_INT);
+
+        return $this->db->execute();
+    }
+}    
