@@ -27,7 +27,7 @@ class Zangeres
         return $this->db->resultSet();
     }
 
-     public function delete($Id)
+    public function delete($Id)
     {
         $sql = "DELETE
                  FROM Zangeressen
@@ -39,6 +39,4 @@ class Zangeres
 
         return $this->db->execute();
     }
-
-
 }

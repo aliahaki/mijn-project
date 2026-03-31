@@ -9,7 +9,7 @@ class SmartphoneController extends BaseController
         $this->smartphoneModel = $this->model('Smartphone');
     }
 
-    public function index($display='none', $message='')
+    public function index($display = 'none', $message = '')
     {
         /**
          * Haal de resultaten van de model binnen
@@ -48,31 +48,72 @@ class SmartphoneController extends BaseController
         $data = [
             'title'   => 'Nieuwe smartphone toevoegen',
             'display' => 'none',
-            'message' => ''
+            'message' => '',
+            'errors'  => []
         ];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            if (empty($_POST['merk']) ||
-                empty($_POST['model']) ||
-                empty($_POST['prijs']) ||
-                empty($_POST['geheugen']) ||
-                empty($_POST['besturingssysteem']) ||
-                empty($_POST['schermgrootte']) ||
-                empty($_POST['releasedatum']) ||
-                empty($_POST['megapixels'])) {
+            $errors = [];
 
-                $data['display'] = 'flex';
-                $data['message'] = 'Vul alle velden in';
+            if (empty(trim($_POST['merk']))) {
+                $errors['merk'] = 'Voer een merk in';
+            } elseif (strlen($_POST['merk']) > 20) {
+                $errors['merk'] = 'Merk mag maximaal 20 tekens bevatten';
             }
-            else {
 
+            if (empty(trim($_POST['model']))) {
+                $errors['model'] = 'Voer een model in';
+            } elseif (strlen($_POST['model']) > 20) {
+                $errors['model'] = 'Model mag maximaal 20 tekens bevatten';
+            }
+
+            if (empty($_POST['prijs'])) {
+                $errors['prijs'] = 'Voer een prijs in';
+            } elseif (!is_numeric($_POST['prijs']) || $_POST['prijs'] < 0 || $_POST['prijs'] > 9999.99) {
+                $errors['prijs'] = 'Voer een geldige prijs in (0 - 9999,99)';
+            }
+
+            if (empty($_POST['geheugen'])) {
+                $errors['geheugen'] = 'Voer een geheugen in';
+            } elseif (!is_numeric($_POST['geheugen']) || $_POST['geheugen'] < 0 || $_POST['geheugen'] > 4000) {
+                $errors['geheugen'] = 'Voer een geldig geheugen in (0 - 4000 GB)';
+            }
+
+            if (empty(trim($_POST['besturingssysteem']))) {
+                $errors['besturingssysteem'] = 'Voer een besturingssysteem in';
+            } elseif (strlen($_POST['besturingssysteem']) > 20) {
+                $errors['besturingssysteem'] = 'Maximaal 20 tekens';
+            }
+
+            if (empty($_POST['schermgrootte'])) {
+                $errors['schermgrootte'] = 'Voer een schermgrootte in';
+            } elseif (!is_numeric($_POST['schermgrootte']) || $_POST['schermgrootte'] < 0 || $_POST['schermgrootte'] > 10) {
+                $errors['schermgrootte'] = 'Voer een geldige schermgrootte in (0 - 10 inch)';
+            }
+
+            if (empty($_POST['releasedatum'])) {
+                $errors['releasedatum'] = 'Voer een releasedatum in';
+            } elseif (!DateTime::createFromFormat('Y-m-d', $_POST['releasedatum'])) {
+                $errors['releasedatum'] = 'Voer een geldig datum in (jjjj-mm-dd)';
+            }
+
+            if (empty($_POST['megapixels'])) {
+                $errors['megapixels'] = 'Voer het aantal megapixels in';
+            } elseif (!is_numeric($_POST['megapixels']) || $_POST['megapixels'] < 0 || $_POST['megapixels'] > 200) {
+                $errors['megapixels'] = 'Voer een geldig aantal in (0 - 200)';
+            }
+
+            // ✔ HIER IS DE FIX
+            if (!empty($errors)) {
+                $data['errors'] = $errors;
+                $data['display'] = 'flex';
+                $data['message'] = 'Vul alle velden correct in';
+            } else {
+                $this->smartphoneModel->create($_POST);
                 $data['display'] = 'flex';
                 $data['message'] = 'De gegevens zijn opgeslagen';
-
-                $this->smartphoneModel->create($_POST);
-
-                header('Location: ' . URLROOT . '/SmartphoneController/index');
+                header('Refresh: 3; URL=' . URLROOT . '/SmartphoneController/index');
                 exit;
             }
         }
@@ -80,40 +121,84 @@ class SmartphoneController extends BaseController
         $this->view('smartphone/create', $data);
     }
 
-    public function update($Id=NULL)
+    public function update($Id = NULL)
     {
         $data = [
             'title'   => 'Wijzig smartphone',
             'display' => 'none',
-            'message' => ''
+            'message' => '',
+            'errors'  => []
         ];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            if (empty($_POST['merk']) ||
-                empty($_POST['model']) ||
-                empty($_POST['prijs']) ||
-                empty($_POST['geheugen']) ||
-                empty($_POST['besturingssysteem']) ||
-                empty($_POST['schermgrootte']) ||
-                empty($_POST['releasedatum']) ||
-                empty($_POST['megapixels'])) {
-
-                $data['display'] = 'flex';
-                $data['message'] = 'Vul alle velden in';
-                $data['color'] = 'danger';
+            // Validatie
+            if (empty(trim($_POST['merk']))) {
+                $data['errors']['merk'] = 'Voer een merk in';
+            } elseif (strlen($_POST['merk']) > 20) {
+                $data['errors']['merk'] = 'Merk mag maximaal 20 tekens bevatten';
             }
-            else {
-                $result = $this->smartphoneModel->updateSmartphone($_POST);
+
+            if (empty(trim($_POST['model']))) {
+                $data['errors']['model'] = 'Voer een model in';
+            } elseif (strlen($_POST['model']) > 20) {
+                $data['errors']['model'] = 'Model mag maximaal 20 tekens bevatten';
+            }
+
+            if (empty($_POST['prijs'])) {
+                $data['errors']['prijs'] = 'Voer een prijs in';
+            } elseif (!is_numeric($_POST['prijs']) || $_POST['prijs'] < 0 || $_POST['prijs'] > 9999.99) {
+                $data['errors']['prijs'] = 'Voer een geldige prijs in (0 - 9999,99)';
+            }
+
+            if (empty($_POST['geheugen'])) {
+                $data['errors']['geheugen'] = 'Voer een geheugen in';
+            } elseif (!is_numeric($_POST['geheugen']) || $_POST['geheugen'] < 0 || $_POST['geheugen'] > 4000) {
+                $data['errors']['geheugen'] = 'Voer een geldig geheugen in (0 - 4000 GB)';
+            }
+
+            if (empty(trim($_POST['besturingssysteem']))) {
+                $data['errors']['besturingssysteem'] = 'Voer een besturingssysteem in';
+            } elseif (strlen($_POST['besturingssysteem']) > 20) {
+                $data['errors']['besturingssysteem'] = 'Maximaal 20 tekens';
+            }
+
+            if (empty($_POST['schermgrootte'])) {
+                $data['errors']['schermgrootte'] = 'Voer een schermgrootte in';
+            } elseif (!is_numeric($_POST['schermgrootte']) || $_POST['schermgrootte'] < 0 || $_POST['schermgrootte'] > 10) {
+                $data['errors']['schermgrootte'] = 'Voer een geldige schermgrootte in (0 - 10 inch)';
+            }
+
+            if (empty($_POST['releasedatum'])) {
+                $data['errors']['releasedatum'] = 'Voer een releasedatum in';
+            } elseif (!DateTime::createFromFormat('Y-m-d', $_POST['releasedatum'])) {
+                $data['errors']['releasedatum'] = 'Voer een geldig datum in (jjjj-mm-dd)';
+            }
+
+            if (empty($_POST['megapixels'])) {
+                $data['errors']['megapixels'] = 'Voer het aantal megapixels in';
+            } elseif (!is_numeric($_POST['megapixels']) || $_POST['megapixels'] < 0 || $_POST['megapixels'] > 200) {
+                $data['errors']['megapixels'] = 'Voer een geldig aantal in (0 - 200)';
+            }
+
+            // Als er GEEN fouten zijn → opslaan
+            if (empty($data['errors'])) {
+
+                $this->smartphoneModel->updateSmartphone($_POST);
 
                 $data['display'] = 'flex';
                 $data['message'] = 'Het record is succesvol opgeslagen';
-                $data['color'] = 'success';
+
                 header('Refresh: 3; URL=' . URLROOT . '/SmartphoneController/index');
+                exit;
+            } else {
+                // Er zijn fouten → rode meldingen tonen
+                $data['display'] = 'flex';
+                $data['message'] = 'Vul alle velden correct in';
             }
         }
 
-        // Laat de model de data ophalen uit de database
+        // Ophalen bestaande data
         $data['smartphone'] = $this->smartphoneModel->getSmartphoneById($Id);
 
         $this->view('smartphone/update', $data);

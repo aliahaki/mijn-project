@@ -8,23 +8,23 @@
     </div>
 
     <!-- Terugkoppeling naar de gebruiker -->
-<div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
-    <div class="col-10 text-begin text-primary">
-        <div class="alert alert-success" role="alert">
-            <?= $data['message']; ?>
+    <div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+        <div class="col-10 text-begin text-primary">
+            <div class="alert alert-success" role="alert">
+                <?= $data['message']; ?>
+            </div>
         </div>
     </div>
-</div>
 
- <!-- Knop voor het maken van een nieuw smartphone record -->
-<div class="row mt-3 d-flex justify-content-center">
-  <div class="col-10 text-begin text-danger">
-    <a href="<?= URLROOT; ?>/ZangeresController/create"
-       class="btn btn-warning"
-       role="button">Nieuwe zangeres
-    </a>
-  </div>
-</div>
+    <!-- Knop voor het maken van een nieuw smartphone record -->
+    <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-10 text-begin text-danger">
+            <a href="<?= URLROOT; ?>/ZangeresController/create"
+                class="btn btn-warning"
+                role="button">Nieuwe zangeres
+            </a>
+        </div>
+    </div>
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
@@ -38,11 +38,12 @@
                         <th>Genre</th>
                         <th>Hit Song</th>
                         <th>Releasedatum</th>
+                        <th>Wijzig</th>
                         <th>Verwijder</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($data['result'] as $zangeres) : ?>
+                    <?php foreach ($data['result'] as $zangeres) : ?>
                         <tr>
                             <td><?= $zangeres->Naam; ?></td>
                             <td><?= number_format($zangeres->Vermogen, 0, ',', '.'); ?></td>
@@ -51,7 +52,12 @@
                             <td><?= $zangeres->Genre; ?></td>
                             <td><?= $zangeres->HitSong; ?></td>
                             <td><?= $zangeres->Releasedatum; ?></td>
-                               <td class="text-center">
+                            <td class="text-center">
+                                <a href="<?= URLROOT; ?>/ZangeresController/update/<?= $zangeres->Id; ?>">
+                                    <i class="bi bi-pencil-fill text-success"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
                                 <a href="<?= URLROOT; ?>/ZangeresController/delete/<?= $zangeres->Id; ?>"
                                     onclick="return confirm( 'Weet je zeker dat je dit record wilt verwijderen?');">
                                     <i class="bi bi-trash3-fill text-danger"></i>
