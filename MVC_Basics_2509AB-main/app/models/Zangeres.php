@@ -40,3 +40,4 @@ class Zangeres
         return $this->db->execute();
     }
 }
+
