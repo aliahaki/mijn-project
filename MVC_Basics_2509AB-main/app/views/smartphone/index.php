@@ -1,6 +1,6 @@
 <?php require_once APPROOT . '/views/includes/header.php'; ?>
 
-<!-- Voor het centreren van de container gebruiken we het boostrap grid -->
+<!-- Voor het centreren van de container gebruiken we het bootstrap grid -->
 <div class="container">
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
@@ -9,23 +9,23 @@
     </div>
 
     <!-- Terugkoppeling naar de gebruiker -->
-<div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
-    <div class="col-10 text-begin text-primary">
-        <div class="alert alert-success" role="alert">
-            <?= $data['message']; ?>
+    <div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+        <div class="col-10 text-begin text-primary">
+            <div class="alert alert-success" role="alert">
+                <?= $data['message']; ?>
+            </div>
         </div>
     </div>
-</div>
 
- <!-- Knop voor het maken van een nieuw smartphone record -->
-<div class="row mt-3 d-flex justify-content-center">
-  <div class="col-10 text-begin text-danger">
-    <a href="<?= URLROOT; ?>/SmartphoneController/create"
-       class="btn btn-warning"
-       role="button">Nieuwe smartphone
-    </a>
-  </div>
-</div>
+    <!-- Knop voor het maken van een nieuw smartphone record -->
+    <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-10 text-begin text-danger">
+            <a href="<?= URLROOT; ?>/SmartphoneController/create"
+                class="btn btn-warning"
+                role="button">Nieuwe smartphone
+            </a>
+        </div>
+    </div>
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($data['result'] as $smartphone) : ?>
+                    <?php foreach ($data['result'] as $smartphone) : ?>
                         <tr>
                             <td><?= $smartphone->Merk; ?></td>
                             <td><?= $smartphone->Model; ?></td>
@@ -62,7 +62,7 @@
                             </td>
                             <td class="text-center">
                                 <a href="<?= URLROOT; ?>/SmartphoneController/delete/<?= $smartphone->Id; ?>"
-                                    onclick="return confirm( 'Weet je zeker dat je dit record wilt verwijderen?');">
+                                    onclick="return confirm('Weet je zeker dat je dit record wilt verwijderen?');">
                                     <i class="bi bi-trash3-fill text-danger"></i>
                                 </a>
                             </td>
@@ -70,7 +70,10 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="<?= URLROOT; ?>/homepages/index"><i class="bi bi-arrow-left"></i></a>
+
+            <a href="<?= URLROOT; ?>/homepages/index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Terug naar homepage
+            </a>
         </div>
     </div>
 </div>

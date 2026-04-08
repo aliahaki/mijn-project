@@ -8,23 +8,23 @@
         </div>
     </div>
 
-       <!-- Terugkoppeling naar de gebruiker -->
-<div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
-    <div class="col-10 text-begin text-primary">
-        <div class="alert alert-success" role="alert">
-            <?= $data['message']; ?>
+    <!-- Terugkoppeling naar de gebruiker -->
+    <div class="row mt-3 d-<?= $data['display']; ?> justify-content-center">
+        <div class="col-10 text-begin text-primary">
+            <div class="alert alert-success" role="alert">
+                <?= $data['message']; ?>
+            </div>
         </div>
     </div>
-</div>
-     <!-- Knop voor het maken van een nieuw smartphone record -->
-<div class="row mt-3 d-flex justify-content-center">
-  <div class="col-10 text-begin text-danger">
-    <a href="<?= URLROOT; ?>/SneakerController/create"
-       class="btn btn-warning"
-       role="button">Nieuwe sneaker
-    </a>
-  </div>
-</div>
+    <!-- Knop voor het maken van een nieuw smartphone record -->
+    <div class="row mt-3 d-flex justify-content-center">
+        <div class="col-10 text-begin text-danger">
+            <a href="<?= URLROOT; ?>/SneakerController/create"
+                class="btn btn-warning"
+                role="button">Nieuwe sneaker
+            </a>
+        </div>
+    </div>
 
     <div class="row mt-3 d-flex justify-content-center">
         <div class="col-10">
@@ -39,13 +39,13 @@
                         <th>Materiaal</th>
                         <th>Gewicht (kg)</th>
                         <th>Releasedatum</th>
-                        <th>Wijzigen</th>  
+                        <th>Wijzigen</th>
                         <th>Verwijder</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <?php foreach($data['result'] as $sneaker) : ?>
+                    <?php foreach ($data['result'] as $sneaker) : ?>
                         <tr>
                             <td><?= $sneaker->Merk; ?></td>
                             <td><?= $sneaker->Model; ?></td>
@@ -54,28 +54,27 @@
                             <td><?= $sneaker->Materiaal; ?></td>
                             <td><?= $sneaker->Gewicht; ?></td>
                             <td><?= $sneaker->Releasedatum; ?></td>
-                              <td class="text-center">
+                            <td class="text-center">
                                 <a href="<?= URLROOT; ?>/SneakerController/update/<?= $sneaker->Id; ?>">
                                     <i class="bi bi-pencil-fill text-success"></i>
                                 </a>
                             </td>
                             <td class="text-center">
                                 <a href="<?= URLROOT; ?>/SneakerController/delete/<?= $sneaker->Id; ?>"
-                                   onclick="return confirm('Weet je zeker dat je dit record wilt verwijderen?')">
-                                   <i class="bi bi-trash3-fill text-danger"></i>
+                                    onclick="return confirm('Weet je zeker dat je dit record wilt verwijderen?')">
+                                    <i class="bi bi-trash3-fill text-danger"></i>
                                 </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-
             </table>
 
-            <a href="<?= URLROOT; ?>/homepages/index"><i class="bi bi-arrow-left"></i></a>
-
+            <a href="<?= URLROOT; ?>/homepages/index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Terug naar homepage
+            </a>
         </div>
     </div>
-
 </div>
 
 <?php require_once APPROOT . '/views/includes/footer.php'; ?>

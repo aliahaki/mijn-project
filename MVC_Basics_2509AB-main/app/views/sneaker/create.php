@@ -75,12 +75,13 @@
                         value="<?= $_POST['releasedatum'] ?? ''; ?>">
                     <div class="invalid-feedback"><?= $data['errors']['releasedatum'] ?? '' ?></div>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Opslaan</button>
-
+                <div class="d-flex justify-content-between mt-3 mb-5">
+                    <button type="submit" class="btn btn-primary">Opslaan</button>
+                    <a href="<?= URLROOT; ?>/homepages/index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Terug naar homepage
+                    </a>
+                </div>
             </form>
-
-            <a href="<?= URLROOT; ?>/homepages/index" class="bi bi-arrow-left"></a>
         </div>
     </div>
 </div>

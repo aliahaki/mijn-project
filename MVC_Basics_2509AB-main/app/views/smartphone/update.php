@@ -48,7 +48,7 @@
                     <input name="prijs" type="number"
                         class="form-control <?= isset($data['errors']['prijs']) ? 'is-invalid' : ''; ?>"
                         id="prijs"
-                        value="<?= $_POST['prijs'] ?? $data['smartphone']->Prijs ?>">
+                        value><?= $_POST['prijs'] ?? $data['smartphone']->Prijs ?>">
                     <div class="invalid-feedback"><?= $data['errors']['prijs'] ?? '' ?></div>
                 </div>
 
@@ -97,9 +97,16 @@
                     <div class="invalid-feedback"><?= $data['errors']['megapixels'] ?? '' ?></div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Opslaan</button>
-            </form>
+                <input type="hidden" name="id" value="<?= $_POST['id'] ?? $data['smartphone']->Id ?>">
 
+                <div class="d-flex justify-content-between mt-3 mb-5">
+                    <button type="submit" class="btn btn-primary">Verstuur</button>
+                    <a href="<?= URLROOT; ?>/homepages/index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i>Terug naar homepage
+                    </a>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>
